@@ -10,17 +10,22 @@ class SessionsController < ApplicationController
        session[:user_id] = @user.id
        flash[:success] = "You've login succesfully"
        redirect_to users_path
-     else
-       flash[:danger] = "invalid email or password"
-       render 'new'
+      else
+        flash[:danger] = "invalid email or password"
+        render 'new'
        # handle "invalid password"
-     end
-   else
-     flash[:danger] = "User not found"
-     render 'new'
-     # handle "user not found"
+      end
+    else
+      flash[:danger] = "User not found"
+      render 'new'
+      # handle "user not found"
 
-   end
- end
+    end
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path, flash: {success: "Logged out"}
+  end
 
 end
